@@ -75,7 +75,7 @@ figure('Color',[1 0.98 0.95])
 
 
 %%%% GLOBAL FORCINGS
-subplot(4,4,1)
+subplot(4,5,1)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -100,7 +100,7 @@ text(-590,1.4,'GA','color',[0.8 0.8 0.8])
 title('Forcings')
 
 %%% Corg fluxes
-subplot(4,4,2)
+subplot(4,5,2)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -120,7 +120,7 @@ text(-590,2e12,'ocdeg','color','k')
 title('C_{org} fluxes')
 
 %%% Ccarb fluxes
-subplot(4,4,3)
+subplot(4,5,3)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -140,7 +140,7 @@ text(-590,16e12,'mccb','color','k')
 title('C_{carb} fluxes')
 
 %%% S fluxes
-subplot(4,4,4)
+subplot(4,5,4)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -165,7 +165,7 @@ text(-590,0.8e12,'gypdeg','color','g')
 title('S fluxes')
 
 %%%% C SPECIES
-subplot(4,4,5)
+subplot(4,5,5)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -183,7 +183,7 @@ text(-590,1,'C','color','c')
 title('C reservoirs')
 
 %%%% S SPECIES
-subplot(4,4,6)
+subplot(4,5,6)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -199,7 +199,7 @@ text(-590,0.9,'GYP','color','c')
 title('S reservoirs')
 
 %%% NUTRIENTS P N
-subplot(4,4,7)
+subplot(4,5,7)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -216,7 +216,7 @@ text(-590,1,'N','color','g')
 title('Nutrient reservoirs')
 
 %%%% Forg and Fpy ratos
-subplot(4,4,8)
+subplot(4,5,8)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -228,7 +228,7 @@ plot(state.time_myr,state.mocb ./ (state.mocb + state.mccb),'k')
 plot(state.time_myr, state.mpsb ./ (state.mpsb + state.mgsb),'m')
 
 %%%% d13C record
-subplot(4,4,9)
+subplot(4,5,9)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -240,7 +240,7 @@ plot(d13c_x,d13c_y,'.','color',pc2)
 plot(state.time_myr,state.delta_mccb,'k')
 
 %%%% d34S record
-subplot(4,4,10)
+subplot(4,5,10)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -252,7 +252,7 @@ plot(d34s_x,d34s_y,'.','color',pc2)
 plot(state.time_myr,state.d34s_S,'k')
 
 %%%% Ocean 87Sr/86Sr 
-subplot(4,4,11)
+subplot(4,5,11)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -265,7 +265,7 @@ plot(sr_x,sr_y,'color',pc2)
 plot(state.time_myr,state.delta_OSr,'k')
 
 %%%% SO4
-subplot(4,4,12)
+subplot(4,5,12)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -283,7 +283,7 @@ end
 plot(state.time_myr,(state.S./pars.S0)*28,'k')
 
 %%%% O2 (%) 
-subplot(4,4,13)
+subplot(4,5,13)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -297,7 +297,7 @@ end
 plot(state.time_myr,state.mrO2.*100,'k')
 
 %%%% CO2ppm
-subplot(4,4,14)
+subplot(4,5,14)
 set(gca, 'YScale', 'log')
 hold on
 box on
@@ -329,7 +329,7 @@ plot(state.time_myr,state.RCO2.*280,'k')
 
 
 %%%% TEMP
-subplot(4,4,15)
+subplot(4,5,15)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -344,7 +344,7 @@ plot(state.time_myr,state.tempC,'k')
 plot(state.time_myr,state.SAT_equator,'r')
 
 %%%% ICE LINE
-subplot(4,4,16)
+subplot(4,5,16)
 hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
@@ -357,6 +357,44 @@ plot(state.time_myr,state.iceline,'k') ;
 ylim([0 90])
 colormap(gca,'gray')
 
+
+%%%% ANOXIC FRACTION
+subplot(4,5,17)
+hold on
+box on
+xlim([pars.whenstart/1e6 pars.whenend/1e6])
+xlabel('Time (Ma)')
+ylabel('ANOX')
+%%%% plot this model
+plot(state.time_myr,state.ANOX,'k') ;
+colormap(gca,'gray')
+
+
+%%%% d15N
+subplot(4,5,18)
+hold on
+box on
+xlim([pars.whenstart/1e6 pars.whenend/1e6])
+xlabel('Time (Ma)')
+ylabel('\delta^{15}N')
+%%%% plot N isotope proxy
+%%%% plot this model
+plot(state.time_myr,state.d15N_ocean,'k') ;
+colormap(gca,'gray')
+
+
+%%%% denitrification
+subplot(4,5,19)
+hold on
+box on
+xlim([pars.whenstart/1e6 pars.whenend/1e6])
+xlabel('Time (Ma)')
+ylabel('denit (b), nfix (g), monb (k)')
+%%%% plot this model
+plot(state.time_myr,state.denit,'b') ;
+plot(state.time_myr,state.nfix,'g') ;
+plot(state.time_myr,state.monb,'k') ;
+colormap(gca,'gray')
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

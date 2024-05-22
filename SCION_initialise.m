@@ -250,7 +250,7 @@ function run = SCION_initialise(runcontrol)
     end
 
     %%%%%%% model timeframe in years (0 = present day)
-    pars.whenstart = - 600e6 ;
+    pars.whenstart = - 700e6 ;
     pars.whenend = 0 ;
 
     %%%% setp up grid stamp times
@@ -293,6 +293,7 @@ function run = SCION_initialise(runcontrol)
     pars.delta_GYP_start = 20 ;
     pars.delta_OSr_start = 0.708 ;
     pars.delta_SSr_start = 0.708 ;
+    pars.delta_d15N_ocean_start = 5 ;
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%   Initial parameter tuning option  %%%%%%%%%%%%%%%%
@@ -351,7 +352,8 @@ function run = SCION_initialise(runcontrol)
     pars.startstate(19) = pars.OSr_start * pars.delta_OSr_start ;
     pars.startstate(20) = pars.SSr_start ;
     pars.startstate(21) = pars.SSr_start * pars.delta_SSr_start ;
-
+    pars.startstate(22) = pars.N_start * pars.delta_d15N_ocean_start ;
+    
     %%%% note model start time
     tic
 

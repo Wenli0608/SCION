@@ -21,7 +21,7 @@ function dy = SCION_equations(t,y)
 
 
 %%%%%%% setup dy array
-dy = zeros(21,1);  
+dy = zeros(22,1);  
 
 %%%%%%% set up global parameters
 global stepnumber
@@ -102,7 +102,11 @@ D_combined_max = interp1qr( forcings.D_force_x' , forcings.D_force_max , t_geol)
 % DEGASS = 1 ;
 % DEGASS = D_sbz_rift ;
 % DEGASS = D_merdith ;
-DEGASS = D_combined_mid ;
+if t_geol < -600
+    DEGASS = 2 ;
+else
+    DEGASS = D_combined_mid ;
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % W = 1 ;
 W = W_reloaded ;
@@ -527,11 +531,17 @@ dy(11) = nfix - denit - monb;
 %%%% d13c and d34s for forwards model
 d13c_A = y(16) / y(3) ;
 d34s_S = y(17) / y(4) ;
+d15N_ocean = y(22) / y(11) ;
 
 %%%% carbonate fractionation
 delta_locb = d13c_A - capdelC_land ; 
 delta_mocb = d13c_A - capdelC_marine ; 
 delta_mccb = d13c_A ;
+d15N_denit = d15N_ocean - 15 ;
+
+%%%% nitrogen fractionation
+d15N_atm = 0 ;
+
 
 %%%%% S isotopes (copse)
 delta_mpsb = d34s_S - capdelS ;
@@ -554,6 +564,8 @@ dy(16) = -locb*(  delta_locb ) -mocb*( delta_mocb ) + oxidw*delta_G + ocdeg*delt
 %%% delta_S * S
 dy(17) = gypw*delta_GYP + pyrw*delta_PYR -mgsb*d34s_S - mpsb*( delta_mpsb ) + gypdeg*delta_GYP + pyrdeg*delta_PYR ; 
 
+%%% delta_N * N
+dy(22) = nfix*d15N_atm - denit*d15N_denit - monb*d15N_ocean ;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -643,6 +655,7 @@ if sensanal == 0
     workingstate.delta_PYR(stepnumber,1) = delta_PYR ;
     workingstate.delta_GYP(stepnumber,1) = delta_GYP ;
     workingstate.delta_OSr(stepnumber,1) = delta_OSr ;
+    workingstate.d15N_ocean(stepnumber,1) = d15N_ocean ;
     %%%%%%% print forcings
     workingstate.DEGASS(stepnumber,1) = DEGASS ;
     workingstate.W(stepnumber,1) = W ;
@@ -661,6 +674,7 @@ if sensanal == 0
     %%%%%%%% print fluxes
     workingstate.mocb(stepnumber,1) = mocb ;
     workingstate.locb(stepnumber,1) = locb ;
+    workingstate.monb(stepnumber,1) = monb ;
     workingstate.mccb(stepnumber,1) = mccb ;
     workingstate.mpsb(stepnumber,1) = mpsb ;
     workingstate.mgsb(stepnumber,1) = mgsb ;
