@@ -486,7 +486,8 @@ else
     nfix = 0 ;
 end
 
-denit = pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
+denit_water = 0.3 * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
+denit_sediment = 0.7 * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
 
 %%%% reductant input
 reductant_input = pars.k_reductant_input * DEGASS ;
@@ -521,7 +522,7 @@ dy(7) = mpsb - pyrw - pyrdeg ;
 dy(8) = mgsb - gypw - gypdeg ;
 
 %%%% Nitrate
-dy(11) = nfix - denit - monb;
+dy(11) = nfix - denit_sediment - denit_water - monb;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -565,7 +566,7 @@ dy(16) = -locb*(  delta_locb ) -mocb*( delta_mocb ) + oxidw*delta_G + ocdeg*delt
 dy(17) = gypw*delta_GYP + pyrw*delta_PYR -mgsb*d34s_S - mpsb*( delta_mpsb ) + gypdeg*delta_GYP + pyrdeg*delta_PYR ; 
 
 %%% delta_N * N
-dy(22) = nfix*d15N_atm - denit*d15N_denit - monb*d15N_ocean ;
+dy(22) = nfix*d15N_atm - denit_water*d15N_denit - denit_sediment*d15N_ocean - monb*d15N_ocean ;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -686,7 +687,8 @@ if sensanal == 0
     workingstate.phosw(stepnumber,1) = phosw ;
     workingstate.psea(stepnumber,1) = psea ;
     workingstate.nfix(stepnumber,1) = nfix ;
-    workingstate.denit(stepnumber,1) = denit ;
+    workingstate.denit_water(stepnumber,1) = denit_water ;
+    workingstate.denit_sediment(stepnumber,1) = denit_sediment ;
     workingstate.VEG(stepnumber,1) = VEG ;
     workingstate.pyrw(stepnumber,1) = pyrw ;
     workingstate.gypw(stepnumber,1) = gypw ;
