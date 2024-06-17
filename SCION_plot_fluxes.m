@@ -389,7 +389,7 @@ hold on
 box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
 xlabel('Time (Ma)')
-ylabel('denit (b), nfix (g), monb (k)')
+ylabel('denit water (b), denit sed (b--) nfix (g), monb (k)')
 %%%% plot this model
 plot(state.time_myr,state.denit_water,'b') ;
 plot(state.time_myr,state.denit_sediment,'b--') ;

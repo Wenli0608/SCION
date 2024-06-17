@@ -216,6 +216,10 @@ function run = SCION_initialise(runcontrol)
     end
     
     
+    %%%% read sea level file
+    forcings.sea_level = xlsread('forcings/Sea_level.xlsx','','','basic') ;
+    forcings.sea_level(:,1) = forcings.sea_level(:,1)*-1 ; 
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%   Generate sensitivity randoms   %%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

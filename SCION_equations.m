@@ -138,6 +138,10 @@ f_biot = interp1qr([-1000 -525 -520 0]',[0 0 1 1]',t_geol);
 CB = interp1qr([0 1]',[1.2 1]',f_biot) ;
 
 
+%%%% sea level
+SEALEVEL = interp1qr(forcings.sea_level(:,1),forcings.sea_level(:,2),t_geol) ;
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%   Sensitivity analysis  %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -486,8 +490,10 @@ else
     nfix = 0 ;
 end
 
-denit_water = 0.3 * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
-denit_sediment = 0.7 * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
+fraction_water_column = 0.5 - (SEALEVEL/500) ;
+
+denit_water = fraction_water_column * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
+denit_sediment = (1-fraction_water_column) * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
 
 %%%% reductant input
 reductant_input = pars.k_reductant_input * DEGASS ;
@@ -665,6 +671,7 @@ if sensanal == 0
     workingstate.Bforcing(stepnumber,1) = Bforcing ;
     workingstate.BAS_AREA(stepnumber,1) = BAS_AREA ;
     workingstate.GRAN_AREA(stepnumber,1) = GRAN_AREA ;
+    workingstate.SEALEVEL(stepnumber,1) = SEALEVEL ;
     %%%%%%%% print variables
     workingstate.RCO2(stepnumber,1) = RCO2 ;
     workingstate.RO2(stepnumber,1) = RO2 ;
