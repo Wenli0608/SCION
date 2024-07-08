@@ -241,6 +241,7 @@ function run = SCION_initialise(runcontrol)
         sensparams.randminusplus5 = 2*(0.5 - rand) ;
         sensparams.randminusplus6 = 2*(0.5 - rand) ;
         sensparams.randminusplus7 = 2*(0.5 - rand) ;    
+        sensparams.randminusplus8 = 2*(0.5 - rand) ;    
     end
 
 
@@ -262,7 +263,7 @@ function run = SCION_initialise(runcontrol)
     end
 
     %%%%%%% model timeframe in years (0 = present day)
-    pars.whenstart = - 700e6 ;
+    pars.whenstart = - 600e6 ;
     pars.whenend = 0 ;
 
     %%%% setp up grid stamp times

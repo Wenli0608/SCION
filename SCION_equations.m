@@ -102,11 +102,11 @@ D_combined_max = interp1qr( forcings.D_force_x' , forcings.D_force_max , t_geol)
 % DEGASS = 1 ;
 % DEGASS = D_sbz_rift ;
 % DEGASS = D_merdith ;
-if t_geol < -600
-    DEGASS = 2 ;
-else
+% if t_geol < -600
+%     DEGASS = 2 ;
+% else
     DEGASS = D_combined_mid ;
-end
+% end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % W = 1 ;
 W = W_reloaded ;
@@ -140,7 +140,8 @@ CB = interp1qr([0 1]',[1.2 1]',f_biot) ;
 
 %%%% sea level
 SEALEVEL = interp1qr(forcings.sea_level(:,1),forcings.sea_level(:,2),t_geol) ;
-
+%%%% water column denitrificaiton constant
+k_denit = 0.001 ;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%   Sensitivity analysis  %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,8 +168,15 @@ if sensanal == 1
     capdelS = 30 + 10*sensparams.randminusplus5 ;
     capdelC_land = 25 + 5*sensparams.randminusplus6 ;
     capdelC_marine = 30 + 5*sensparams.randminusplus7 ;
+    
+    
+    %%%% formulation for denitfrfication location
+    k_denit = 0.001 + 0.0005*sensparams.randminusplus8 ;
+    
 end
 
+
+fraction_water_column = max( 0.27 - k_denit*SEALEVEL , 0 ) ;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%   Spatial fields from stack   %%%%%%%%%%%%%%%%%%%%%
@@ -490,7 +498,7 @@ else
     nfix = 0 ;
 end
 
-fraction_water_column = 0.43 - (SEALEVEL/500) ;
+
 
 denit_water = fraction_water_column * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
 denit_sediment = (1-fraction_water_column) * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
@@ -773,6 +781,8 @@ if sensanal == 1
     workingstate.ANOX(stepnumber,1) = ANOX ;
     workingstate.P(stepnumber,1) = P/pars.P0 ;
     workingstate.N(stepnumber,1) = N/pars.N0 ;
+    workingstate.d15N_ocean(stepnumber,1) = d15N_ocean ;
+    workingstate.fraction_water_column(stepnumber,1) = fraction_water_column ;
     workingstate.time_myr(stepnumber,1) = t_geol ;
     workingstate.time(stepnumber,1) = t;
 end

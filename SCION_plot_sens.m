@@ -34,11 +34,11 @@ load('data/geochem_data_2020.mat')
 sens.time_myr = sens.time_myr(:,1) ;
 
 %%%% Forcings
-subplot(5,2,1)
+subplot(4,3,1)
 hold on
 box on
 xlabel('Time (Ma)')
-ylabel('\delta^{13}C_{carb}')
+ylabel('Forcings')
 %%%% plot DEGASS
 plot((sens.time_myr),mean(sens.DEGASS,2),'linewidth',1,'color',c_mean)
 plot((sens.time_myr),max(sens.DEGASS,[],2),'linewidth',0.5,'color',c_range)
@@ -53,7 +53,7 @@ plot((sens.time_myr),max(sens.BAS_AREA,[],2),'linewidth',0.5,'color',c_range)
 plot((sens.time_myr),min(sens.BAS_AREA,[],2),'linewidth',0.5,'color',c_range)
 
 %%%% d13C record
-subplot(5,2,2)
+subplot(4,3,2)
 hold on
 box on
 xlabel('Time (Ma)')
@@ -66,7 +66,7 @@ plot((sens.time_myr),max(sens.delta_mccb,[],2),'linewidth',0.5,'color',c_range)
 plot((sens.time_myr),min(sens.delta_mccb,[],2),'linewidth',0.5,'color',c_range)
 
 %%%% d34S record
-subplot(5,2,3)
+subplot(4,3,3)
 hold on
 box on
 xlabel('Time (Ma)')
@@ -79,7 +79,7 @@ plot((sens.time_myr),max(sens.d34s_S,[],2),'linewidth',0.5,'color',c_range)
 plot((sens.time_myr),min(sens.d34s_S,[],2),'linewidth',0.5,'color',c_range)
 
 %%%% Ocean 87Sr/86Sr 
-subplot(5,2,4)
+subplot(4,3,4)
 hold on
 box on
 ylim([0.706 0.71])
@@ -93,7 +93,7 @@ plot((sens.time_myr),max(sens.delta_OSr,[],2),'linewidth',0.5,'color',c_range)
 plot((sens.time_myr),min(sens.delta_OSr,[],2),'linewidth',0.5,'color',c_range)
 
 %%%% SO4
-subplot(5,2,5)
+subplot(4,3,5)
 hold on
 box on
 xlabel('Time (Ma)')
@@ -112,7 +112,7 @@ plot((sens.time_myr),max(sens.SmM,[],2),'linewidth',0.5,'color',c_range)
 plot((sens.time_myr),min(sens.SmM,[],2),'linewidth',0.5,'color',c_range)
 
 %%%% O2 (%) 
-subplot(5,2,6)
+subplot(4,3,6)
 hold on
 box on
 xlabel('Time (Ma)')
@@ -128,7 +128,7 @@ plot((sens.time_myr),min(sens.mrO2.*100,[],2),'linewidth',0.5,'color',c_range)
 
 
 %%%% CO2ppm
-subplot(5,2,7)
+subplot(4,3,7)
 set(gca, 'YScale', 'log')
 hold on
 box on
@@ -160,7 +160,7 @@ plot((sens.time_myr),max(sens.CO2ppm,[],2),'linewidth',0.5,'color',c_range)
 plot((sens.time_myr),min(sens.CO2ppm,[],2),'linewidth',0.5,'color',c_range)
 
 %%%% TEMP
-subplot(5,2,8)
+subplot(4,3,8)
 hold on
 box on
 ylim([5 40])
@@ -182,7 +182,7 @@ plot((sens.time_myr),max(sens.SAT_equator,[],2),'linewidth',0.5,'color',c_range,
 plot((sens.time_myr),min(sens.SAT_equator,[],2),'linewidth',0.5,'color',c_range,'linestyle',':')
 
 %%%% ICE LINE
-subplot(5,2,9)
+subplot(4,3,9)
 hold on
 box on
 xlabel('Time (Ma)')
@@ -195,7 +195,7 @@ plot((sens.time_myr),max(sens.iceline,[],2),'linewidth',0.5,'color',c_range)
 plot((sens.time_myr),min(sens.iceline,[],2),'linewidth',0.5,'color',c_range)
 
 %%%% P and N
-subplot(5,2,10)
+subplot(4,3,10)
 hold on
 box on
 xlabel('Time (Ma)')
@@ -207,6 +207,29 @@ plot((sens.time_myr),min(sens.P,[],2),'linewidth',0.5,'color',c_range)
 plot((sens.time_myr),mean(sens.N,2),'--','linewidth',1,'color',c_mean)
 plot((sens.time_myr),max(sens.N,[],2),'--','linewidth',0.5,'color',c_range)
 plot((sens.time_myr),min(sens.N,[],2),'--','linewidth',0.5,'color',c_range)
+
+
+%%%% d15N
+subplot(4,3,11)
+hold on
+box on
+xlabel('Time (Ma)')
+ylabel('\delta^{15}N')
+%%%% plot this model
+plot((sens.time_myr),mean(sens.d15N_ocean,2),'linewidth',1,'color',c_mean)
+plot((sens.time_myr),max(sens.d15N_ocean,[],2),'linewidth',0.5,'color',c_range)
+plot((sens.time_myr),min(sens.d15N_ocean,[],2),'linewidth',0.5,'color',c_range)
+
+%%%% water column denit
+subplot(4,3,12)
+hold on
+box on
+xlabel('Time (Ma)')
+ylabel('fraction water column')
+%%%% plot this model
+plot((sens.time_myr),mean(sens.fraction_water_column,2),'linewidth',1,'color',c_mean)
+plot((sens.time_myr),max(sens.fraction_water_column,[],2),'linewidth',0.5,'color',c_range)
+plot((sens.time_myr),min(sens.fraction_water_column,[],2),'linewidth',0.5,'color',c_range)
 
 
 %%%%% plotting script finished
