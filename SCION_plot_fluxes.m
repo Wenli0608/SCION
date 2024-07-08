@@ -377,6 +377,10 @@ box on
 xlim([pars.whenstart/1e6 pars.whenend/1e6])
 xlabel('Time (Ma)')
 ylabel('\delta^{15}N')
+%%%% plot data comparison
+%%%% Algeo_2014
+plot(Algeo_2014_age,Algeo_2014_d15N,'.','color',pc1)
+% plot(Algeo_2014_age,Algeo_2014_d15N,'color',pc1)
 %%%% plot N isotope proxy
 %%%% plot this model
 plot(state.time_myr,state.d15N_ocean,'k') ;

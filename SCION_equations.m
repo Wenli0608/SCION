@@ -490,7 +490,7 @@ else
     nfix = 0 ;
 end
 
-fraction_water_column = 0.5 - (SEALEVEL/500) ;
+fraction_water_column = 0.43 - (SEALEVEL/500) ;
 
 denit_water = fraction_water_column * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
 denit_sediment = (1-fraction_water_column) * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
