@@ -221,12 +221,26 @@ function run = SCION_initialise(runcontrol)
     forcings.sea_level(:,1) = forcings.sea_level(:,1)*-1 ; 
 
 
-    %%%% read δ15N data comparison file
+    %%%% read Algeo 2014 δ15N data comparison file
     Algeo_2014 = xlsread('Algeo_2014.xlsx','','','basic') ;
     Algeo_2014(:,1) = Algeo_2014(:,1)*-1 ;
     Algeo_2014_age = Algeo_2014(:,1);
     Algeo_2014_d15N = Algeo_2014(:,2);
-    
+
+
+    %%%% read Nitrogen Database comparison file
+    Nitrogen_Database = xlsread('Nitrogen_Database.xlsx','','','basic') ;
+    Nitrogen_Database(:,1) = Nitrogen_Database(:,1)*-1; 
+    Nitrogen_Database_age = Nitrogen_Database(:,1) ;
+    Nitrogen_Database_d15N = Nitrogen_Database(:,2) ;
+
+
+    %%%% read Naqing section Database comparison file
+    NQ_Databese = xlsread('NQ_Databese.xlsx','','','basic') ;
+    NQ_Databese(:,1) = NQ_Databese(:,1)*-1 ;
+    NQ_Databese_age =  NQ_Databese(:,1) ;
+    NQ_Databese_d15N = NQ_Databese(:,2);
+
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%   Generate sensitivity randoms   %%%%%%%%%%%%%%%%%%

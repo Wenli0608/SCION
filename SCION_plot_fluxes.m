@@ -378,6 +378,10 @@ xlim([pars.whenstart/1e6 pars.whenend/1e6])
 xlabel('Time (Ma)')
 ylabel('\delta^{15}N')
 %%%% plot data comparison
+%%%% Nitrogen Database
+plot( Nitrogen_Database_age,Nitrogen_Database_d15N,'.','color',pc6)
+%%%% Naqing section Database
+plot( NQ_Databese_age,NQ_Databese_d15N,'.','color','k')
 %%%% Algeo_2014
 plot(Algeo_2014_age,Algeo_2014_d15N,'.','color',pc1)
 % plot(Algeo_2014_age,Algeo_2014_d15N,'color',pc1)
