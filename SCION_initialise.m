@@ -115,9 +115,11 @@ function run = SCION_initialise(runcontrol)
     pars.k_mopb = 1e10 ;
     pars.k_phosw = 4.25e10 ;
     pars.k_landfrac = 0.0588 ;
+
     %%%% N cycle
     pars.k_nfix = 8.67e12 ;
     pars.k_denit = 4.3e12 ;
+    pars.k_riverine = 1.23e12 ;
 
     %%%% fluxes calculated for steady state
     pars.k_oxidw = pars.k_mocb + pars.k_locb - pars.k_ocdeg - pars.k_reductant_input ;

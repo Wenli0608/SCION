@@ -503,6 +503,13 @@ end
 denit_water = fraction_water_column * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
 denit_sediment = (1-fraction_water_column) * pars.k_denit * ( 1 + ( ANOX / (1-pars.k_oxfrac) )  ) * (N/pars.N0) ;
 
+%%%% riverine input
+if t < -372
+    riverine_input = 0 ;
+else
+riverine_input = pars.k_riverine * VEG ;
+end
+
 %%%% reductant input
 reductant_input = pars.k_reductant_input * DEGASS ;
 
@@ -536,7 +543,7 @@ dy(7) = mpsb - pyrw - pyrdeg ;
 dy(8) = mgsb - gypw - gypdeg ;
 
 %%%% Nitrate
-dy(11) = nfix - denit_sediment - denit_water - monb;
+dy(11) = nfix - denit_sediment - denit_water - monb + riverine_input ;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -556,6 +563,7 @@ d15N_denit = d15N_ocean - 15 ;
 
 %%%% nitrogen fractionation
 d15N_atm = 0 ;
+d15N_RIV = 3 ;
 
 
 %%%%% S isotopes (copse)
@@ -580,7 +588,7 @@ dy(16) = -locb*(  delta_locb ) -mocb*( delta_mocb ) + oxidw*delta_G + ocdeg*delt
 dy(17) = gypw*delta_GYP + pyrw*delta_PYR -mgsb*d34s_S - mpsb*( delta_mpsb ) + gypdeg*delta_GYP + pyrdeg*delta_PYR ; 
 
 %%% delta_N * N
-dy(22) = nfix*d15N_atm - denit_water*d15N_denit - denit_sediment*d15N_ocean - monb*d15N_ocean ;
+dy(22) = nfix*d15N_atm - denit_water*d15N_denit - denit_sediment*d15N_ocean - monb*d15N_ocean + riverine_input *d15N_RIV;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
